@@ -24,7 +24,7 @@ var 12
 */
 #include <iostream>
 #include "Triangle.h"
-#include "Read_input.cpp"
+#include "Read_input.hpp"
 #include "List.h"
 #include "Iterator.h"
 #include "ListEl.h"
@@ -62,17 +62,15 @@ int main(){ // можно вынести названия команд как к
 		std::string&& command_string = static_cast<std::string>(command);
 		if(command_string == "exit") return 0;
 		if(command_string == "p") {
-			int num_of_verteces = 3;
 			Triangle triangle;
 			std::pair<double, double> vertex;
-			for(int i = 0; i < num_of_verteces; i++) { //add usage of \n?
-				if(get_value<Triangle>(triangle) != VALID_INPUT) {
-					do ch=getchar(); while((ch != EOF) && (ch != '\n'));
-					std::cout << "wrong input" << std::endl;
-					if(ch == EOF) return 0;
-					else goto beginning_of_the_entire_input;
-				}
+			if(get_value<Triangle>(triangle) != VALID_INPUT) {
+				do ch=getchar(); while((ch != EOF) && (ch != '\n'));
+				std::cout << "wrong input" << std::endl;
+				if(ch == EOF) return 0;
+				else goto beginning_of_the_entire_input;
 			}
+			list.put(triangle, list.begin());
 		} else if(command_string == "print") {
 			std::cout << list;
 		} else {

@@ -12,5 +12,6 @@ main.cpp
 Read_input.cpp
 Triangle.cpp
 Triangle.h
+Read_input.tpp
 )
 

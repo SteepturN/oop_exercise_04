@@ -9,9 +9,9 @@ public:
     ~List();
     Iterator begin();
     int put(Triangle& t);
-    int put(Triangle& t, Iterator& i);
-    Triangle& get(Iterator& p);
-    void remove(Iterator& p);
+    int put(Triangle& t, Iterator i);
+    Triangle& get(Iterator p);
+    void remove(Iterator p);
     Iterator end();
 	friend std::ostream& operator<<(std::ostream&, List&);
     ListEl* head;

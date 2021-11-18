@@ -21,4 +21,6 @@ class Triangle {
 	friend std::istream& operator>>(std::istream& cin, Triangle& t);
 };
 
+std::ostream& operator<<(std::ostream& cout, Triangle& t);
+std::istream& operator>>(std::istream& cin, Triangle& t);
 #endif // TRIANGLE_H_
