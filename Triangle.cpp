@@ -26,15 +26,14 @@ bool Triangle::operator==(const Triangle& t) {
 	return result;
 }
 std::ostream& operator<<(std::ostream& cout, Triangle& t) {
-	cout << "triangle: \nsides length:\t";
+	cout << "triangle\nsides' length:\t";
 	for(int i = 0; i < NUM_OF_VERTECES_OF_TRIANGLE; ++i) {
 		auto v1 = t.verteces[i-1<0?NUM_OF_VERTECES_OF_TRIANGLE:i-1];
 		auto v2 = t.verteces[i];
-		cout << sqrt(pow(v1.first-v2.first,2)+pow(v1.second-v2.second, 2)) << '\t';
+		cout << sqrt(pow(v1.first-v2.first,2)+pow(v1.second-v2.second, 2)) << ' ';
 	}
 	cout << '\n' << "coordinates: ";
-	for(int i = 0; i < NUM_OF_VERTECES_OF_TRIANGLE; ++i)
-		cout << '(' << t.verteces[i].first << ", " << t.verteces[i].second << ")\n";
+	t.coordinates();
 	return cout;
 }
 
@@ -53,10 +52,11 @@ std::istream& operator>>(std::istream& cin, Triangle& t) {
 			}
 		}
 		cin.unget();
+		ch = ' ';
 		if(j == 0)
-			cin >> t.verteces[i].first;
+			cin >> t.verteces[i/2].first;
 		else
-			cin >> t.verteces[i].second;
+			cin >> t.verteces[i/2].second;
 		if(cin.fail()) {
 			t = copy;
 			return cin;

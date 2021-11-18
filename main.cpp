@@ -44,7 +44,6 @@ int main(){ // можно вынести названия команд как к
 //"
 	std::cout << help_message;
 	do {
-	beginning_of_the_entire_input:
 		bool valid_input = false;
 		do{
 			read_return_t answer = get_command(valid_commands, command);
@@ -63,31 +62,41 @@ int main(){ // можно вынести названия команд как к
 		if(command_string == "exit") return 0;
 		if(command_string == "p") {
 			Triangle triangle;
-			std::pair<double, double> vertex;
-			if(get_value<Triangle>(triangle) != VALID_INPUT) {
-				do ch=getchar(); while((ch != EOF) && (ch != '\n'));
-				std::cout << "wrong input" << std::endl;
-				if(ch == EOF) return 0;
-				else goto beginning_of_the_entire_input;
-			}
-			list.put(triangle, list.begin());
-		} else if(command_string == "print") {
-			std::cout << list;
-		} else {
-			unsigned int input_figure_number(0);
-			if(get_value<unsigned int>(input_figure_number) != VALID_INPUT) { //if there would be EOF
-				do ch=getchar(); while((ch != EOF) && (ch != '\n'));
-				std::cout << "wrong input" << std::endl;
-				if(ch == EOF) return 0;
-				else continue;
+			unsigned int input_figure_number = 0;
+			if(get_value<unsigned int>(input_figure_number) != VALID_INPUT ||
+			   input_figure_number > list.size) { //if there would be EOF
+				std::cout << "wrong input";
 			} else {
 				bool all_done = false;
 				Iterator i = list.begin();
 				while(!all_done) {
-					if(i == list.end()) {
-						std::cout << "too much\n";
+					if(input_figure_number == 0) {
 						all_done = true;
-					} else if(input_figure_number == 0) {
+					} else {
+						++i;
+						--input_figure_number;
+					}
+				}
+				if(get_value<Triangle>(triangle) != VALID_INPUT)
+					std::cout << "wrong input";
+				else {
+					list.put(triangle, i);
+					continue;
+				}
+			}
+		} else if(command_string == "print") {
+			std::cout << list;
+			continue;
+		} else { //delete
+			unsigned int input_figure_number = 0;
+			if(get_value<unsigned int>(input_figure_number) != VALID_INPUT ||
+			input_figure_number >= list.size) { //if there would be EOF
+				std::cout << "wrong input";
+			} else {
+				bool all_done = false;
+				Iterator i = list.begin();
+				while(!all_done) {
+					if(input_figure_number == 0) {
 						list.remove(i);
 						all_done = true;
 					} else {
@@ -96,7 +105,6 @@ int main(){ // можно вынести названия команд как к
 					}
 				}
 			}
-
 		}
 		do ch = getchar(); while((ch != '\n') && (ch != EOF));
 		std::cout << std::endl;

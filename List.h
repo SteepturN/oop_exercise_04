@@ -15,6 +15,7 @@ public:
     Iterator end();
 	friend std::ostream& operator<<(std::ostream&, List&);
     ListEl* head;
-    int size;
+    unsigned int size;
+    ListEl** tail;
 };
 #endif // LIST_H
